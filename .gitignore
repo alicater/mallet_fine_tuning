@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Python virtual environments
 venv/
 .venv/
@@ -5,6 +6,10 @@ backend/venv/
 backend/.venv/
 
 # Python cache
+=======
+backend/venv/
+backend/.venv/
+>>>>>>> c364abe (fix)
 __pycache__/
 *.pyc
 *.pyo
