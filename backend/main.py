@@ -12,7 +12,9 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 MODEL_PATH = os.path.join(BASE_DIR, "models", "marimba_expert_v1.gguf")
 DB_PATH = os.path.join(BASE_DIR, "chroma_db") 
 
-print("Loading model...")
+print("Loading model from:", MODEL_PATH)
+
+
 llm = Llama(
     model_path=MODEL_PATH,
     n_ctx=2048,
@@ -43,22 +45,28 @@ def ask():
 
     question = data.get("question", "")
 
-    if not question:
-        return jsonify({"error": "No question was provided"}), 400
+    if not question.strip():
+        return jsonify({
+            "error": "No question was provided."
+        }), 400
 
     prompt = f"""
-You are a helpful marimba expert. Answer questions about marimba technique, practice, music, performance, and setup.
+You are a helpful marimba and mallet percussion expert.
 
-Question: {question}
+Answer the user's question clearly and practically.
+Focus on technique, practice advice, tone quality, rhythm, grip, repertoire, and performance.
+
+User question:
+{question}
 
 Answer:
 """
 
     response = llm(
         prompt,
-        max_tokens=300,
+        max_tokens=350,
         temperature=0.7,
-        stop=["Question:"]
+        stop=["User question:"]
     )
 
     answer = response["choices"][0]["text"].strip()
@@ -70,4 +78,4 @@ Answer:
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=True, port=5000)
