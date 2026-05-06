@@ -1,7 +1,7 @@
 import os
 from langchain_community.document_loaders import PyPDFLoader, CSVLoader, TextLoader
-from langchain.text_splitter import RecursiveCharacterTextSplitter
-from langchain_community.embeddings import HuggingFaceEmbeddings
+from langchain_text_splitters import RecursiveCharacterTextSplitter
+from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_chroma import Chroma 
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -34,7 +34,7 @@ text_splitter = RecursiveCharacterTextSplitter(chunk_size=750, chunk_overlap=150
 chunks = text_splitter.split_documents(docs)
 
 print("3. Generating embeddings and building Chroma DB...")
-embeddings = HuggingFaceEmbeddings(model_name="all-MiniLM-L6-v2")
+embeddings = HuggingFaceEmbeddings(model_name="BAAI/bge-base-en-v1.5")
 
 vectorstore = Chroma.from_documents(
     documents=chunks, 

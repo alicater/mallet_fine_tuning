@@ -62,6 +62,17 @@ function App() {
     setQuestion(text);
   }
 
+  function handleKeyDown(e) {
+    if (e.key === "Enter" && !e.shiftKey) {
+      e.preventDefault(); // stops text area from making new line
+      
+      // only triggers submit if it's not already loading and isn't empty
+      if (question.trim() && !loading) {
+        handleSubmit(e);
+      }
+    }
+  }
+
   return (
     <div className="page">
       <header className="topbar">
@@ -174,6 +185,7 @@ function App() {
             <textarea
               value={question}
               onChange={(e) => setQuestion(e.target.value)}
+              onKeyDown={handleKeyDown}
               placeholder="Ask a marimba question..."
             />
             <button type="submit" disabled={loading}>
