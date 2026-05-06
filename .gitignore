@@ -1,12 +1,25 @@
+# Python virtual environments
+venv/
+.venv/
+backend/venv/
 backend/.venv/
+
+# Python cache
 __pycache__/
-*.pyc 
+*.pyc
+*.pyo
+*.pyd
+
+# Environment files
 .env
 
+# Node
 node_modules/
 frontend/node_modules/
 dist/
+frontend/dist/
 
+# Large model files
 *.gguf
 backend/models/*.gguf
 
