@@ -2,12 +2,15 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 from llama_cpp import Llama
 import os
+from langchain_community.embeddings import HuggingFaceEmbeddings
+from langchain_chroma import Chroma
 
 app = Flask(__name__)
 CORS(app)
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 MODEL_PATH = os.path.join(BASE_DIR, "models", "marimba_expert_v1.gguf")
+DB_PATH = os.path.join(BASE_DIR, "chroma_db") 
 
 print("Loading model...")
 llm = Llama(
@@ -15,9 +18,18 @@ llm = Llama(
     n_ctx=2048,
     n_threads=8
 )
-print("Model loaded successfully.")
 
+print("Loading Chroma Vector Database...")
+embeddings = HuggingFaceEmbeddings(model_name="all-MiniLM-L6-v2")
 
+# Load the existing database from the directory
+vectorstore = Chroma(
+    persist_directory=DB_PATH,
+    embedding_function=embeddings
+)
+retriever = vectorstore.as_retriever(search_kwargs={"k": 3})
+
+print("✅ Backend fully loaded and ready.")
 @app.route("/")
 def home():
     return jsonify({
