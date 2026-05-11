@@ -1,0 +1,22 @@
+[
+  {
+    "id": 1,
+    "question": "Explain the concept of the 'piston stroke' and why it is more efficient than an elliptical motion.",
+    "category": "Technique"
+  },
+  {
+    "id": 2,
+    "question": "I'm playing a lyrical solo on a rosewood marimba and need something for the middle register. What IP mallet do you recommend?",
+    "category": "Equipment"
+  },
+  {
+    "id": 3,
+    "question": "How do the fingers control the interval changes when using the Stevens grip?",
+    "category": "Technique"
+  },
+  {
+    "id": 4,
+    "question": "What are the primary differences between the independent and lateral strokes in 4-mallet playing?",
+    "category": "Pedagogy"
+  }
+]
